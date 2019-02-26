@@ -9,4 +9,7 @@ SECRET_KEY = 'Sup3r$3cretkey'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config['UPLOAD_FOLDER'] = "./app/static/uploads"
+filefolder = app.config['UPLOAD_FOLDER']
+
 from app import views
