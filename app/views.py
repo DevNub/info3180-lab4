@@ -27,6 +27,15 @@ def about():
     return render_template('about.html', name="Mary Jane")
 
 
+@app.route('/files')
+def files():
+    if not session.get('logged_in'):
+        abort(401)
+        
+    """Render page with uploaded files"""
+    return render_template('files.html')
+
+
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
     if not session.get('logged_in'):
@@ -73,6 +82,18 @@ def logout():
 ###
 # The functions below should be applicable to all Flask apps.
 ###
+
+#Get uploaded images 
+def get_uploaded_images():
+    fileList = []
+    rootdir = os.getcwd()
+    print rootdir
+    for subdir, dirs, files in os.walk(rootdir + '/some/folder'):
+        for file in files:
+            fileList.append(os.path.join(subdir, file))
+    return render_template('files.html', fileList=fileList)
+
+
 
 # Flash errors from the form if validation fails
 def flash_errors(form):
